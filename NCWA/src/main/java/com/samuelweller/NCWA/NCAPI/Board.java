@@ -50,11 +50,11 @@ public class Board {
 		return arr;
 	}
 	
-	public static List<String> toCharArray(Board board) {
-		List<String> arr = new ArrayList<String>();
+	public static List<Integer> toCharArray(Board board) {
+		List<Integer> arr = new ArrayList<Integer>();
 		for (int  i = 0; i < 3; i++) {
 			for (int  j = 0; j < 3; j++) {
-				arr.add(board.getChar(board.getBoard()[j][i]));
+				arr.add(board.getBoard()[j][i]);
 			}
 		}
 		return arr;

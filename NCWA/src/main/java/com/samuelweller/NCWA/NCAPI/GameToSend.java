@@ -4,15 +4,15 @@ import java.util.List;
 
 public class GameToSend {
 
-	private List<String> board;
+	private List<Integer> board;
 	private boolean turn;
 	private int winner;
 	
-	public List<String> getBoard() {
+	public List<Integer> getBoard() {
 		return board;
 	}
 
-	public void setBoard(List<String> board) {
+	public void setBoard(List<Integer> board) {
 		this.board = board;
 	}
 
@@ -36,6 +36,7 @@ public class GameToSend {
 		this.board = Board.toCharArray(game.getBoard());
 		this.turn = game.getTurn();
 		this.winner = game.getWinner();
+		System.out.println(this.board.toString());
 	}
 
 	@Override

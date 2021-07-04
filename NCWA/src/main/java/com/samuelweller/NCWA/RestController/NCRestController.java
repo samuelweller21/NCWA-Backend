@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.samuelweller.NCWA.AccountManagement.Account;
+import com.samuelweller.NCWA.AccountManagement.Accounts;
+import com.samuelweller.NCWA.AccountManagement.SignUpForm;
 import com.samuelweller.NCWA.NCAPI.Game;
 import com.samuelweller.NCWA.NCAPI.GameToSend;
 import com.samuelweller.NCWA.NCAPI.LiveGames;
@@ -69,6 +72,24 @@ public class NCRestController {
 		}
 	}
 	
+	//Account Management
+	
+	@PostMapping("/createaccount")
+	public ResponseEntity<String> createAccount(@RequestBody Account account) {
+		System.out.println("Recieved a new account request with details: " + account.getUsername() + " - " + account.getPassword());
+		if (Accounts.addAccount(account)) {
+			return new ResponseEntity<>("Account Created", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Account was not created", HttpStatus.OK);
+		}
+	}
+	
+	@PostMapping("/suggestusername")
+	public ResponseEntity<String> suggestUsername(@RequestBody SignUpForm form) {
+		System.out.println("Recieved a new username request: " + form.getUsername());
+		return new ResponseEntity<>(Accounts.checkUsername(form.getUsername()), HttpStatus.OK);
+	}
+	
 	//Computer games
 	
 	@GetMapping("/cpgames/new")
@@ -125,6 +146,13 @@ public class NCRestController {
 				return new ResponseEntity<GameToSend>(new GameToSend(LiveGames.getComputerGame(id)), HttpStatus.BAD_REQUEST);
 			}
 		}
+	}
+	
+	//Catch all ?
+	
+	@GetMapping("/")
+	public void catchAll() {
+		System.out.println("Missed a request");
 	}
 }
 	
